@@ -6,7 +6,7 @@ import com.ecom.ecomuser.models.UserRole;
 import lombok.Data;
 
 @Data
-public class CreateUserRequest {
+public class UserRequest {
     private String fName;
     private String lName;
     private String email;

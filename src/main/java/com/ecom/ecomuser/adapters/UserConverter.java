@@ -1,8 +1,8 @@
 package com.ecom.ecomuser.adapters;
 
 
-import com.ecom.ecomuser.dto.requests.CreateUserRequest;
-import com.ecom.ecomuser.dto.responses.CreateUserResponse;
+import com.ecom.ecomuser.dto.requests.UserRequest;
+import com.ecom.ecomuser.dto.responses.UserResponse;
 import com.ecom.ecomuser.models.User;
 import com.ecom.ecomuser.models.UserRole;
 import lombok.AllArgsConstructor;
@@ -14,8 +14,8 @@ public class UserConverter {
 
     private AddressConverter addressConverter;
 
-    public CreateUserResponse userModelToUserResponse(User user) {
-        return CreateUserResponse.builder()
+    public UserResponse userModelToUserResponse(User user) {
+        return UserResponse.builder()
                 .id(String.valueOf(user.getId()))
                 .fName(user.getFName())
                 .lName(user.getLName())
@@ -28,7 +28,7 @@ public class UserConverter {
                 .build();
     }
 
-    public User userRequestToUserModel(CreateUserRequest userRequest){
+    public User userRequestToUserModel(UserRequest userRequest){
         return User.builder()
                 .fName(userRequest.getFName())
                 .lName(userRequest.getLName())
