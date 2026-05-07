@@ -31,7 +31,7 @@ public class UserService {
         return userConverter.userModelToUserResponse(userRepository.save(userConverter.userRequestToUserModel(userRequest)));
     }
 
-    public Optional<UserResponse> fetchUser(Long id) {
+    public Optional<UserResponse> fetchUser(String id) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             return Optional.ofNullable(userConverter.userModelToUserResponse(user));
@@ -40,7 +40,7 @@ public class UserService {
         }
     }
 
-    public boolean updateUser(Long id, UserRequest userRequest) {
+    public boolean updateUser(String id, UserRequest userRequest) {
         User updatedUser = userConverter.userRequestToUserModel(userRequest);
         return userRepository.findById(id).map(existinguser -> {
             existinguser.setFName(updatedUser.getFName());

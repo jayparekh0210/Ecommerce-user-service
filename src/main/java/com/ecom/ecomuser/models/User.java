@@ -1,12 +1,16 @@
 package com.ecom.ecomuser.models;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.time.LocalDateTime;
 
@@ -15,27 +19,28 @@ import static com.ecom.ecomuser.models.UserRole.CUSTOMER;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
-@Entity(name = "user_table")
+@Document(collection = "users")
 public class User {
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String fName;
     private String lName;
-    private String email;
-    private String phoneNumber;
-    private UserRole role = CUSTOMER;
 
-    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @Indexed(unique = true)
+    private String email;
+
+    private String phoneNumber;
+    private UserRole role;
+
     private Address address;
 
-    @CreationTimestamp
+    @CreatedDate
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
 }

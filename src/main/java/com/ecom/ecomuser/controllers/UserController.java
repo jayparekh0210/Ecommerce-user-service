@@ -30,13 +30,13 @@ public class UserController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable Long id){
+    public ResponseEntity<UserResponse> getUser(@PathVariable String id){
         Optional<UserResponse> createUserResponse = userService.fetchUser(id);
         return createUserResponse.map(value -> ResponseEntity.status(HttpStatus.OK).body(value)).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<Boolean> updateUser(@PathVariable Long id, @RequestBody UserRequest updatedUser){
+    public ResponseEntity<Boolean> updateUser(@PathVariable String id, @RequestBody UserRequest updatedUser){
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(id,updatedUser));
     }
 }
