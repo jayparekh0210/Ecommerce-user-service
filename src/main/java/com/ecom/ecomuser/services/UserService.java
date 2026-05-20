@@ -7,6 +7,7 @@ import com.ecom.ecomuser.models.User;
 import com.ecom.ecomuser.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Data
+@Slf4j
 public class UserService {
     private UserRepository userRepository;
     private UserConverter userConverter;
@@ -36,6 +38,7 @@ public class UserService {
         if (user != null) {
             return Optional.ofNullable(userConverter.userModelToUserResponse(user));
         } else {
+            log.error("User not found for id: {}", id);
             return Optional.empty();
         }
     }
@@ -49,6 +52,7 @@ public class UserService {
             existinguser.setPhoneNumber(updatedUser.getPhoneNumber());
             existinguser.setRole(updatedUser.getRole());
             userRepository.save(existinguser);
+            log.info("User updated successfully for id: {}", id);
             return true;
         }).orElse(false);
     }
